@@ -1,0 +1,45 @@
+.home {
+}
+
+.logo {
+    width: 300px;
+    margin: 25px 0;
+}
+
+.logo-left {
+    width: 250px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.logo-right {
+    width: 250px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.tabs {
+    background-color: #f01616;
+    margin: 0 auto;
+    border-radius: 50px;
+}
+
+.search {
+    position: absolute !important;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);   
+}
+
+.results {
+    overflow: auto;
+    height: 482px;
+}
+
+.help {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}

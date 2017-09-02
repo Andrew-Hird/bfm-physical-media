@@ -1,0 +1,16 @@
+.missing-scratched {
+    color: #D50000;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+.gold {
+    color: #FFD600;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+.found {
+    color: white;
+    font-size: 14px;
+}
