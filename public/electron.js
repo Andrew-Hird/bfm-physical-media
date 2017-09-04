@@ -6,6 +6,7 @@ const path = require('path')
 const url = require('url')
 const isDev = require('electron-is-dev')
 const notifier = require('node-notifier')
+const {appUpdater} = require('./autoupdater')
 
 let mainWindow
 
@@ -13,11 +14,11 @@ const autoUpdater = require('electron-updater').autoUpdater
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    minWidth: 850,
+    minHeight: 600,
     backgroundColor: '#222222',
-    resizable: false,
-    fullscreenable: false,
+    resizable: true,
+    fullscreenable: true,
     show: false
   })
   mainWindow.loadURL(
@@ -30,6 +31,16 @@ function createWindow() {
   })
   mainWindow.on('closed', () => (mainWindow = null))
   initAutoUpdate()
+
+  const page = mainWindow.webContents;
+  
+  page.once('did-frame-finish-load', () => {
+    const checkOS = isWindowsOrmacOS();
+    if (checkOS && !isDev) {
+      // Initate auto-updates on macOs and windows
+      appUpdater();
+    }});
+
 }
 
 function initAutoUpdate() {
@@ -68,12 +79,14 @@ function showUpdateNotification(it) {
   )
 }
 
+function isWindowsOrmacOS() {
+	return process.platform === 'darwin' || process.platform === 'win32';
+}
+
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
     app.quit()
-  }
 })
 
 app.on('activate', () => {

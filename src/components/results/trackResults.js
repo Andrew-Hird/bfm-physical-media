@@ -13,7 +13,6 @@ import './results.css'
 const style = {
   list: {
     width: 400,
-    margin: '0 auto',
     textAlign: 'left'
   },
   avatar: {
@@ -72,20 +71,21 @@ class TrackResults extends Component {
         <List style={ {display: 'flex', flexWrap: 'wrap'} }>
           {this.props.results.map((item, i) => {
             return (
-              <ListItem
-                key={ i }
-                leftAvatar={
-                  <Avatar
-                    style={ style.avatar }
-                    src={ item.album ? getMediaIcon(item.album.media) : null }
-                    icon={ <AudioTrack /> }
-                    color={ grey50 } /> }
-                primaryText={ mediaTitle(item) }
-                secondaryText={ item.album ? `${correctChar(item.album.name)} - ${correctChar(item.album.artist)}` : null }
-                style={ style.list }
-                onClick={ () => handleOpen(item) }>
-                <div style={ style.catalog }>#{item.album ? item.album.catalog : null}</div>
-              </ListItem>
+              <div key={ i } style={{margin: '0 auto'}}>
+                <ListItem
+                  leftAvatar={
+                    <Avatar
+                      style={ style.avatar }
+                      src={ item.album ? getMediaIcon(item.album.media) : null }
+                      icon={ <AudioTrack /> }
+                      color={ grey50 } /> }
+                  primaryText={ mediaTitle(item) }
+                  secondaryText={ item.album ? `${correctChar(item.album.name)} - ${correctChar(item.album.artist)}` : null }
+                  style={ style.list }
+                  onClick={ () => handleOpen(item) }>
+                  <div style={ style.catalog }>#{item.album ? item.album.catalog : null}</div>
+                </ListItem>
+              </div>
             )
           })}
         </List>

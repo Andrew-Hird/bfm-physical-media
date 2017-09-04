@@ -35,7 +35,7 @@
 
 .results {
     overflow: auto;
-    height: 482px;
+    height: calc(100vh - 96px);
 }
 
 .help {

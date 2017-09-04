@@ -13,8 +13,7 @@ import './results.css'
 const style = {
   list: {
     width: 400,
-    margin: '0 auto',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   avatar: {
     backgroundColor: 'none',
@@ -72,20 +71,21 @@ class AlbumAristResults extends Component {
         <List style={ {display: 'flex', flexWrap: 'wrap'} }>
           {this.props.results.map((item, i) => {
             return (
-              <ListItem
-                key={ i }
-                leftAvatar={
-                  <Avatar
-                    style={ style.avatar }
-                    src={ getMediaIcon(item.media) }
-                    icon={ <AudioTrack /> }
-                    color={ grey50 } /> }
-                primaryText={ mediaTitle(item) }
-                secondaryText={ correctChar(item.artist) }
-                style={ style.list }
-                onClick={ () => handleOpen(item) }>
-                <div style={ style.catalog }>#{item.catalog}</div>
-              </ListItem>
+              <div key={ i } style={{margin: '0 auto'}}>
+                <ListItem
+                  leftAvatar={
+                    <Avatar
+                      style={ style.avatar }
+                      src={ getMediaIcon(item.media) }
+                      icon={ <AudioTrack /> }
+                      color={ grey50 } /> }
+                  primaryText={ mediaTitle(item) }
+                  secondaryText={ correctChar(item.artist) }
+                  style={ style.list }
+                  onClick={ () => handleOpen(item) }>
+                  <div style={ style.catalog }>#{item.catalog}</div>
+                </ListItem>
+              </div>
             )
           })}
         </List>
