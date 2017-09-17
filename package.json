@@ -1,6 +1,6 @@
 {
   "name": "95bFM",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "95bFM Physical Media Database",
   "author": "Andrew Hird <andrew.james.hird@gmail.com>",
   "homepage": "./",
@@ -36,7 +36,8 @@
     "prop-types": "^15.5.10",
     "react": "^15.4.2",
     "react-apollo": "^1.4.15",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-highlighter": "^0.4.0"
   },
   "main": "public/electron.js",
   "scripts": {

@@ -2,10 +2,13 @@
 const os = require('os');
 const {app, autoUpdater, dialog} = require('electron');
 const version = app.getVersion();
-const platform = os.platform() + '_' + os.arch();  // usually returns darwin_64
+let platform = os.platform() + '_' + os.arch();  // usually returns darwin_x64
+
+if (platform === 'darwin_x64') {
+	platform = 'osx'
+}
 
 const updaterFeedURL = 'https://bfm-db.herokuapp.com/update/' + platform + '/' + version;
-// replace updaterFeedURL with http://yourappname.herokuapp.com
 
 function appUpdater() {
 	autoUpdater.setFeedURL(updaterFeedURL);

@@ -12,7 +12,8 @@ import { findAlbumByArtist, findAlbumByName, findTrack } from './queries'
 import AlbumAristResults from '../results/albumAristResults'
 import TrackResults from '../results/trackResults'
 
-import logo from '../../assets/images/95bfm-logo.svg'
+// import logo from '../../assets/images/95bfm-logo.svg'
+import logo from '../../assets/images/95bfm-logo-white.png'
 
 const styles = {
   underlineStyle: {
@@ -35,6 +36,7 @@ class Home extends Component {
       searching: false,
       result: false,
       noResult: false,
+      searchTerm: '',
       albumAristResults: [],
       trackResults: []
     }
@@ -69,7 +71,10 @@ class Home extends Component {
 
     const handleSubmit = evt => {
       evt.preventDefault()
-      this.setState({noResult: false})
+      this.setState({
+        noResult: false, 
+        searchTerm: this.state.inputValue
+      })
 
       if (!this.state.inputValue) {
         return this.setState({ errorText: 'Please enter something' })
@@ -86,6 +91,9 @@ class Home extends Component {
       if (this.state.selectedSearch === 'ARTIST') {
         findAlbumByArtist(this.props.client, this.state.inputValue)
           .then(results => {
+
+            console.log('ARTIST', results.data.allAlbums)
+
             this.setState({
               searching: false,
               albumAristResults: results.data.allAlbums
@@ -100,6 +108,9 @@ class Home extends Component {
       if (this.state.selectedSearch === 'ALBUM') {
         findAlbumByName(this.props.client, this.state.inputValue)
           .then(results => {
+
+            console.log('ALBUM', results.data.allAlbums)
+
             this.setState({
               searching: false,
               albumAristResults: results.data.allAlbums
@@ -114,6 +125,9 @@ class Home extends Component {
       if (this.state.selectedSearch === 'TRACK') {
         findTrack(this.props.client, this.state.inputValue)
           .then(results => {
+
+            console.log('TRACK', results.data.allTracks)
+
             this.setState({
               searching: false,
               trackResults: results.data.allTracks
@@ -159,8 +173,8 @@ class Home extends Component {
         {this.state.noResult ? <p className='center' style={ {color: 'white'} }>Sorry, nothing found</p> : null}
         {this.state.error ? <p className='center' style={ {color: 'red'} }>Sorry, there was an error</p> : null}
         <div className="results">
-          <AlbumAristResults results={ this.state.albumAristResults } />
-          <TrackResults results={ this.state.trackResults } />
+          <AlbumAristResults results={ this.state.albumAristResults } searchTerm={ this.state.searchTerm } />
+          <TrackResults results={ this.state.trackResults } searchTerm={ this.state.searchTerm } />
         </div>
         <div className="help hint--top-left hint--large hint--rounded" aria-label="For bugs and suggestions, please email andrew.james.hird@gmail.com">
           <ActionHelpOutline />

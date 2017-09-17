@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Highlight from 'react-highlighter'
 import {List, ListItem} from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
 import AudioTrack from 'material-ui/svg-icons/image/audiotrack'
@@ -13,17 +14,25 @@ import './results.css'
 const style = {
   list: {
     width: 400,
-    textAlign: 'left',
+    textAlign: 'left'
   },
   avatar: {
     backgroundColor: 'none',
     position: 'absolute',
     width: 40,
-    top: 20
+    top: 15,
+    filter: 'opacity(30%)'
   },
   catalog: {
-    fontSize: 18,
-    marginBottom: 5
+    fontSize: 11,
+    zIndex: 1,
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    textAlign: 'center',
+    position: 'absolute',
+    left: 15,
+    top: 16
   },
   dialogIcon: {
     position: 'absolute',
@@ -56,9 +65,22 @@ class AlbumAristResults extends Component {
     const mediaTitle = item => {
       return (
         <div>
-          <i>{correctChar(item.name)} {item.releaseYear ? `(${item.releaseYear})` : null} </i>
+          <Highlight search={this.props.searchTerm} matchElement="span">
+            {correctChar(item.name)} 
+          </Highlight>
+          {item.releaseYear ? `(${item.releaseYear})` : null}
           <span> {item.genre ? `[${item.genre}]` : null}</span>
           <span className='missing-scratched'> {item.missing ? 'missing' : null}</span>
+        </div>
+      )
+    }
+
+    const mediaSecondary = item => {
+      return (
+        <div style={{height: '100%', whiteSpace: 'initial'}}>
+          <Highlight search={this.props.searchTerm} matchElement="span">
+            {correctChar(item.artist)} 
+          </Highlight>
         </div>
       )
     }
@@ -80,7 +102,7 @@ class AlbumAristResults extends Component {
                       icon={ <AudioTrack /> }
                       color={ grey50 } /> }
                   primaryText={ mediaTitle(item) }
-                  secondaryText={ correctChar(item.artist) }
+                  secondaryText={ mediaSecondary(item) }
                   style={ style.list }
                   onClick={ () => handleOpen(item) }>
                   <div style={ style.catalog }>#{item.catalog}</div>
@@ -92,6 +114,7 @@ class AlbumAristResults extends Component {
         {this.state.selectedItem ? (
           <AlbumDialog
             selectedItem={ this.state.selectedItem }
+            searchTerm={ this.props.searchTerm }
             open={ this.state.open }
             handleClose={ handleClose } />
         ) : null
@@ -102,7 +125,8 @@ class AlbumAristResults extends Component {
 }
 
 AlbumAristResults.propTypes = {
-  results: PropTypes.array
+  results: PropTypes.array,
+  searchTerm: PropTypes.string
 }
 
 export default AlbumAristResults

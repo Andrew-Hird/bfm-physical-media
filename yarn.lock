@@ -1129,6 +1129,10 @@ binary@^0.3.0:
     buffers "~0.1.1"
     chainsaw "~0.1.0"
 
+blacklist@^1.1.2:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/blacklist/-/blacklist-1.1.4.tgz#b2dd09d6177625b2caa69835a37b28995fa9a2f2"
+
 block-stream@*:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/block-stream/-/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"
@@ -1787,7 +1791,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.6.0:
+create-react-class@^15.5.2, create-react-class@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
@@ -5942,6 +5946,15 @@ react-event-listener@^0.4.5:
     fbjs "^0.8.4"
     prop-types "^15.5.4"
     warning "^3.0.0"
+
+react-highlighter@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-highlighter/-/react-highlighter-0.4.0.tgz#593836757348e119b167aa47bcd5288298419fc3"
+  dependencies:
+    blacklist "^1.1.2"
+    create-react-class "^15.5.2"
+    escape-string-regexp "^1.0.5"
+    prop-types "^15.5.8"
 
 react-scripts@1.0.11:
   version "1.0.11"

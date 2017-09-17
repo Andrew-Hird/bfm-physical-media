@@ -4,7 +4,7 @@ export const findAlbumByArtist = (client, searchTerm) => {
   return client.query({
     query: gql`query {
                   allAlbums(filter: {
-                      artist_contains: "${searchTerm}"
+                      artist_contains: "${searchTerm.toLowerCase()}"
                     }) {
                         id
                         catalog
@@ -30,7 +30,7 @@ export const findAlbumByName = (client, searchTerm) => {
   return client.query({
     query: gql`query {
                   allAlbums(filter: {
-                      name_contains: "${searchTerm}"
+                      name_contains: "${searchTerm.toLowerCase()}"
                     }) {
                         id
                         catalog
@@ -54,7 +54,7 @@ export const findAlbumByName = (client, searchTerm) => {
 export const findTrack = (client, searchTerm) => {
   return client.query({
     query: gql`query {
-        allTracks(filter: {name_contains: "${searchTerm}"}) {
+        allTracks(filter: {name_contains: "${searchTerm.toLowerCase()}"}) {
           id
           name
           trackNumber

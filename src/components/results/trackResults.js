@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {List, ListItem} from 'material-ui/List'
+import Highlight from 'react-highlighter'
 import Avatar from 'material-ui/Avatar'
 import AudioTrack from 'material-ui/svg-icons/image/audiotrack'
 import { grey50 } from 'material-ui/styles/colors'
@@ -19,11 +20,19 @@ const style = {
     backgroundColor: 'none',
     position: 'absolute',
     width: 40,
-    top: 20
+    top: 15,
+    filter: 'opacity(30%)'
   },
   catalog: {
-    fontSize: 18,
-    marginBottom: 5
+    fontSize: 11,
+    zIndex: 1,
+    height: 40,
+    width: 40,
+    lineHeight: '40px',
+    textAlign: 'center',
+    position: 'absolute',
+    left: 15,
+    top: 16
   },
   dialogIcon: {
     position: 'absolute',
@@ -57,7 +66,11 @@ class TrackResults extends Component {
     const mediaTitle = item => {
       return (
         <div>
-          <i>{correctChar(item.name)}</i>
+          <div>
+          </div>
+          <Highlight search={this.props.searchTerm} matchElement="span">
+            {correctChar(item.name.replace())}
+          </Highlight>
           {item.album ? <span className='missing-scratched'> {item.album.missing ? 'missing' : null}</span> : null}
         </div>
       )
@@ -76,7 +89,7 @@ class TrackResults extends Component {
                   leftAvatar={
                     <Avatar
                       style={ style.avatar }
-                      src={ item.album ? getMediaIcon(item.album.media) : null }
+                      /* src={ item.album ? getMediaIcon(item.album.media) : null } */
                       icon={ <AudioTrack /> }
                       color={ grey50 } /> }
                   primaryText={ mediaTitle(item) }
@@ -92,6 +105,7 @@ class TrackResults extends Component {
         {this.state.selectedItem ? (
           <AlbumDialog
             selectedItem={ this.state.selectedItem }
+            searchTerm={ this.props.searchTerm }
             open={ this.state.open }
             handleClose={ handleClose } />
         ) : null
@@ -102,7 +116,8 @@ class TrackResults extends Component {
 }
 
 TrackResults.propTypes = {
-  results: PropTypes.array
+  results: PropTypes.array,
+  searchTerm: PropTypes.string
 }
 
 export default TrackResults

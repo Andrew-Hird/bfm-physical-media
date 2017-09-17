@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Highlight from 'react-highlighter'
 import { List } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
@@ -20,8 +21,10 @@ const style = {
     top: 20
   },
   catalog: {
-    fontSize: 18,
-    marginBottom: 5
+    fontSize: 15,
+    marginTop: -10,
+    marginBottom: -10
+
   },
   dialogIcon: {
     position: 'absolute',
@@ -40,10 +43,13 @@ class AlbumDialog extends Component {
           icon={ <AudioTrack /> }
           color={ grey50 } />
         <div style={ {marginLeft: 50} }>
-          <span>#{this.props.selectedItem.catalog} - </span>
-          <i>{correctChar(this.props.selectedItem.name)} {this.props.selectedItem.releaseYear ? `(${this.props.selectedItem.releaseYear})` : null}</i>
+          <Highlight search={this.props.searchTerm} matchElement="span">
+            {correctChar(this.props.selectedItem.name)} 
+          </Highlight>
+          {this.props.selectedItem.releaseYear ? ` (${this.props.selectedItem.releaseYear})` : null}
           <span> {this.props.selectedItem.genre ? `[${this.props.selectedItem.genre}]` : null}</span>
           <span className='missing-scratched'> {this.props.selectedItem.missing ? 'missing' : null}</span>
+          <div style={ style.catalog }>#{this.props.selectedItem.catalog}</div>
         </div>
       </div>
     ) : null
@@ -57,13 +63,17 @@ class AlbumDialog extends Component {
             modal={ false }
             open={ this.props.open }
             onRequestClose={ this.props.handleClose }>
-            {`${correctChar(this.props.selectedItem.artist)}`}
+            <Highlight search={this.props.searchTerm} matchElement="span">
+              {`${correctChar(this.props.selectedItem.artist)}`}
+            </Highlight>
             <List>
               <ol>
                 {this.props.selectedItem.tracks.map((track, i) => {
                   return (
                     <li key={ i } className='tracks'>
+                    <Highlight search={this.props.searchTerm} matchElement="span">
                       {correctChar(track.name)}
+                    </Highlight>
                       <span className='gold'> {track.gold ? 'gold' : null}</span>
                       <span className='missing-scratched'> {track.scratched ? 'scratched' : null}</span>
                     </li>
@@ -81,6 +91,7 @@ class AlbumDialog extends Component {
 
 AlbumDialog.propTypes = {
   selectedItem: PropTypes.object,
+  searchTerm: PropTypes.string,
   open: PropTypes.bool,
   handleClose: PropTypes.func
 }

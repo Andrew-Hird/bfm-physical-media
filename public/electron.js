@@ -30,7 +30,7 @@ function createWindow() {
       mainWindow.show()
   })
   mainWindow.on('closed', () => (mainWindow = null))
-  initAutoUpdate()
+  // initAutoUpdate()
 
   const page = mainWindow.webContents;
   
@@ -43,18 +43,18 @@ function createWindow() {
 
 }
 
-function initAutoUpdate() {
-  if (isDev) {
-    return
-  }
+// function initAutoUpdate() {
+//   if (isDev) {
+//     return
+//   }
 
-  if (process.platform === 'linux') {
-    return
-  }
+//   if (process.platform === 'linux') {
+//     return
+//   }
 
-  autoUpdater.checkForUpdates()
-  autoUpdater.signals.updateDownloaded(showUpdateNotification)
-}
+//   autoUpdater.checkForUpdates()
+//   autoUpdater.signals.updateDownloaded(showUpdateNotification)
+// }
 
 function showUpdateNotification(it) {
   it = it || {}
