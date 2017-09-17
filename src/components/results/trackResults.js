@@ -7,7 +7,8 @@ import AudioTrack from 'material-ui/svg-icons/image/audiotrack'
 import { grey50 } from 'material-ui/styles/colors'
 
 import AlbumDialog from '../albumDialog/albumDialog'
-import { getMediaIcon, correctChar } from '../../helpers'
+// import { getMediaIcon } from '../../helpers'
+import { correctChar } from '../../helpers'
 
 import './results.css'
 
@@ -52,7 +53,6 @@ class TrackResults extends Component {
 
   render() {
     const handleOpen = (item) => {
-      console.log(item)
       this.setState({
         open: true,
         selectedItem: item.album

@@ -91,9 +91,6 @@ class Home extends Component {
       if (this.state.selectedSearch === 'ARTIST') {
         findAlbumByArtist(this.props.client, this.state.inputValue)
           .then(results => {
-
-            console.log('ARTIST', results.data.allAlbums)
-
             this.setState({
               searching: false,
               albumAristResults: results.data.allAlbums
@@ -108,9 +105,6 @@ class Home extends Component {
       if (this.state.selectedSearch === 'ALBUM') {
         findAlbumByName(this.props.client, this.state.inputValue)
           .then(results => {
-
-            console.log('ALBUM', results.data.allAlbums)
-
             this.setState({
               searching: false,
               albumAristResults: results.data.allAlbums
@@ -125,9 +119,6 @@ class Home extends Component {
       if (this.state.selectedSearch === 'TRACK') {
         findTrack(this.props.client, this.state.inputValue)
           .then(results => {
-
-            console.log('TRACK', results.data.allTracks)
-
             this.setState({
               searching: false,
               trackResults: results.data.allTracks

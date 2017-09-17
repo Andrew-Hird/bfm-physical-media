@@ -12,6 +12,19 @@ const networkInterface = createNetworkInterface({
   uri: 'https://api.graph.cool/simple/v1/bfm-db'
 })
 
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {}
+    }
+
+    const token = process.env.REACT_APP_TOKEN
+
+    req.options.headers.authorization = token ? `Bearer ${token}` : null
+    next()
+  }
+}])
+
 const client = new ApolloClient({
   networkInterface: networkInterface
 })
