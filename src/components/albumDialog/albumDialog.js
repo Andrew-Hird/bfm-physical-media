@@ -5,7 +5,10 @@ import { List } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
 import AudioTrack from 'material-ui/svg-icons/image/audiotrack'
+import SettingsIcon from 'material-ui/svg-icons/action/settings'
 import { grey50 } from 'material-ui/styles/colors'
+
+import SettingsDialog from '../settingsDialog/settingsDialog'
 
 import { getMediaIcon, correctChar } from '../../helpers'
 const style = {
@@ -30,11 +33,37 @@ const style = {
     position: 'absolute',
     width: 40,
     top: 20
+  },
+  settingsIcon: {
+    position: 'absolute',
+    top: 5,
+    right: 5
   }
 }
 
 class AlbumDialog extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+
   render() {
+
+    const handleOpen = (item) => {
+      this.setState({
+        open: true
+      })
+    }
+
+    const handleClose = () => {
+      this.setState({
+        open: false
+      })
+    }
+
     const dialogIcon = this.props.selectedItem ? (
       <div>
         <Avatar
@@ -81,6 +110,15 @@ class AlbumDialog extends Component {
                 })}
               </ol>
             </List>
+            <a href="" onClick={e => e.preventDefault()}>
+              <SettingsIcon 
+                style={style.settingsIcon}
+                onClick={ handleOpen} />
+            </a>
+            <SettingsDialog
+              open={ this.state.open }
+              handleClose={ handleClose }
+              album={ this.props.selectedItem } />
           </Dialog>
         ) : null
         }
