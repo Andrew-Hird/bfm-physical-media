@@ -66,7 +66,7 @@ class AlbumAristResults extends Component {
       return (
         <div>
           <Highlight search={this.props.searchTerm} matchElement="span">
-            {correctChar(item.name)} 
+            {correctChar(item.albumName)}
           </Highlight>
           {item.releaseYear ? `(${item.releaseYear})` : null}
           <span> {item.genre ? `[${item.genre}]` : null}</span>
@@ -79,7 +79,7 @@ class AlbumAristResults extends Component {
       return (
         <div style={{height: '100%', whiteSpace: 'initial'}}>
           <Highlight search={this.props.searchTerm} matchElement="span">
-            {correctChar(item.artist)} 
+            {correctChar(item.artist)}
           </Highlight>
         </div>
       )
@@ -92,6 +92,7 @@ class AlbumAristResults extends Component {
           : null}
         <List style={ {display: 'flex', flexWrap: 'wrap'} }>
           {this.props.results.map((item, i) => {
+            item = item.item
             return (
               <div key={ i } style={{margin: '0 auto'}}>
                 <ListItem
@@ -105,7 +106,7 @@ class AlbumAristResults extends Component {
                   secondaryText={ mediaSecondary(item) }
                   style={ style.list }
                   onClick={ () => handleOpen(item) }>
-                  <div style={ style.catalog }>#{item.catalog}</div>
+                  <div style={ style.catalog }>#{item.catalogNumber}</div>
                 </ListItem>
               </div>
             )

@@ -7,7 +7,7 @@ import AudioTrack from 'material-ui/svg-icons/image/audiotrack'
 import { grey50 } from 'material-ui/styles/colors'
 
 import AlbumDialog from '../albumDialog/albumDialog'
-import { getMediaIcon, correctChar } from '../../helpers'
+import { correctChar } from '../../helpers'
 
 import './results.css'
 
@@ -52,10 +52,9 @@ class TrackResults extends Component {
 
   render() {
     const handleOpen = (item) => {
-      console.log(item)
       this.setState({
         open: true,
-        selectedItem: item.album
+        selectedItem: item
       })
     }
 
@@ -63,15 +62,15 @@ class TrackResults extends Component {
       this.setState({open: false})
     }
 
-    const mediaTitle = item => {
+    const mediaTitle = (item, missing) => {
       return (
         <div>
           <div>
           </div>
           <Highlight search={this.props.searchTerm} matchElement="span">
-            {correctChar(item.name.replace())}
+            {correctChar(item.trackName.replace())}
           </Highlight>
-          {item.album ? <span className='missing-scratched'> {item.album.missing ? 'missing' : null}</span> : null}
+          {missing ? <span className='missing-scratched'> {missing ? 'missing' : null}</span> : null}
         </div>
       )
     }
@@ -83,6 +82,9 @@ class TrackResults extends Component {
           : null}
         <List style={ {display: 'flex', flexWrap: 'wrap'} }>
           {this.props.results.map((item, i) => {
+            const album = item.item
+            const trackIdx = item.matches[0].refIndex
+            const track = album.tracks[trackIdx]
             return (
               <div key={ i } style={{margin: '0 auto'}}>
                 <ListItem
@@ -92,11 +94,11 @@ class TrackResults extends Component {
                       /* src={ item.album ? getMediaIcon(item.album.media) : null } */
                       icon={ <AudioTrack /> }
                       color={ grey50 } /> }
-                  primaryText={ mediaTitle(item) }
-                  secondaryText={ item.album ? `${correctChar(item.album.name)} - ${correctChar(item.album.artist)}` : null }
+                  primaryText={ mediaTitle(track, album.missing) }
+                  secondaryText={ album ? `${correctChar(album.albumName)} - ${correctChar(album.artist)}` : null }
                   style={ style.list }
-                  onClick={ () => handleOpen(item) }>
-                  <div style={ style.catalog }>#{item.album ? item.album.catalog : null}</div>
+                  onClick={ () => handleOpen(album) }>
+                  <div style={ style.catalog }>#{album.catalogNumber ? album.catalogNumber : null}</div>
                 </ListItem>
               </div>
             )

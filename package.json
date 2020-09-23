@@ -1,43 +1,40 @@
 {
   "name": "95bFM",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "95bFM Physical Media Database",
   "author": "Andrew Hird <andrew.james.hird@gmail.com>",
   "homepage": "./",
   "private": true,
   "devDependencies": {
-    "concurrently": "^3.5.0",
-    "electron": "^1.4.14",
-    "electron-builder": "^19.24.1",
-    "electron-winstaller": "^2.6.3",
-    "eslint": "^4.5.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-config-standard-react": "^5.0.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.3.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "prettier": "^1.4.4",
-    "react-scripts": "1.0.11",
-    "wait-on": "^2.0.2"
+    "concurrently": "5.3.0",
+    "electron": "10.1.2",
+    "electron-builder": "22.8.1",
+    "eslint": "6.6.0",
+    "eslint-config-airbnb": "15.1.0",
+    "eslint-config-standard": "10.2.1",
+    "eslint-config-standard-react": "5.0.0",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-node": "5.1.1",
+    "eslint-plugin-promise": "3.5.0",
+    "eslint-plugin-react": "7.3.0",
+    "eslint-plugin-standard": "3.0.1",
+    "prettier": "1.4.4",
+    "react-scripts": "3.4.3",
+    "wait-on": "5.2.0"
   },
   "dependencies": {
-    "apollo-client": "^1.9.1",
-    "cross-env": "5.0.1",
-    "electron-is-dev": "^0.3.0",
-    "electron-log": "^2.2.6",
-    "electron-updater": "^2.4.3",
-    "graphql-tag": "^2.4.2",
-    "material-ui": "^0.19.0",
-    "node-notifier": "^5.1.2",
-    "prop-types": "^15.5.10",
-    "react": "^15.4.2",
-    "react-apollo": "^1.4.15",
-    "react-dom": "^15.4.2",
-    "react-highlighter": "^0.4.0"
+    "cross-env": "7.0.2",
+    "electron-is-dev": "1.2.0",
+    "electron-log": "4.2.4",
+    "electron-updater": "4.3.5",
+    "fuse.js": "6.4.1",
+    "material-ui": "0.19.0",
+    "node-notifier": "8.0.0",
+    "prop-types": "15.5.10",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-highlighter": "0.4.3"
   },
   "main": "public/electron.js",
   "scripts": {
@@ -46,15 +43,14 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-pack": "build --em.main=build/electron.js",
-    "electron-pack-win": "build --em.main=build/electron.js --win",
-    "electron-release": "build --em.main=build/electron.js --publish=never -mw",
-    "electron-release-win": "build --em.main=build/electron.js --publish=never --win --ia32",
-    "preelectron-pack": "yarn build",
-    "preelectron-release": "yarn build"
+    "dist": "yarn build && electron-builder",
+    "pack": "electron-builder --dir",
+    "pack:all": "yarn build && electron-builder build --mac --win --x64 --ia32 --publish never",
+    "pack:win": "yarn build && electron-builder build --win --x64 --ia32 --publish never",
+    "pack:mac": "yarn build && electron-builder build --mac --publish never"
   },
   "build": {
-    "icon": "build/icon.icns",
+    "icon": "build/icon.png",
     "appId": "com.example.electron-cra",
     "files": [
       "build/**/*",
@@ -62,6 +58,21 @@
     ],
     "directories": {
       "buildResources": "assets"
+    },
+    "mac": {
+      "identity": null
     }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

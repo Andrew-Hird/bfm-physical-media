@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withApollo } from 'react-apollo'
 import TextField from 'material-ui/TextField'
 import ActionHelpOutline from 'material-ui/svg-icons/action/help-outline'
 import BSpinner from '../BSpinner/BSpinner'
@@ -8,12 +7,12 @@ import { grey700 } from 'material-ui/styles/colors'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import './home.css'
 
-import { findAlbumByArtist, findAlbumByName, findTrack } from './queries'
 import AlbumAristResults from '../results/albumAristResults'
 import TrackResults from '../results/trackResults'
 
 // import logo from '../../assets/images/95bfm-logo.svg'
 import logo from '../../assets/images/95bfm-logo-white.png'
+import {searchAlbum, searchArtist, searchTrack} from "./search";
 
 const styles = {
   underlineStyle: {
@@ -61,18 +60,10 @@ class Home extends Component {
       })
     }
 
-    const error = err => {
-      console.log(err)
-      this.setState({
-        searching: false,
-        error: true
-      })
-    }
-
     const handleSubmit = evt => {
       evt.preventDefault()
       this.setState({
-        noResult: false, 
+        noResult: false,
         searchTerm: this.state.inputValue
       })
 
@@ -89,54 +80,39 @@ class Home extends Component {
       })
 
       if (this.state.selectedSearch === 'ARTIST') {
-        findAlbumByArtist(this.props.client, this.state.inputValue)
-          .then(results => {
+        const results = searchArtist(this.state.inputValue)
 
-            console.log('ARTIST', results.data.allAlbums)
-
-            this.setState({
-              searching: false,
-              albumAristResults: results.data.allAlbums
-            })
-            if (results.data.allAlbums.length === 0) {
-              this.setState({noResult: true})
-            }
-          })
-          .catch(err => error(err))
+        this.setState({
+          searching: false,
+          albumAristResults: results
+        })
+        if (results.length === 0) {
+          this.setState({noResult: true})
+        }
       }
 
       if (this.state.selectedSearch === 'ALBUM') {
-        findAlbumByName(this.props.client, this.state.inputValue)
-          .then(results => {
+        const results = searchAlbum(this.state.inputValue)
 
-            console.log('ALBUM', results.data.allAlbums)
-
-            this.setState({
-              searching: false,
-              albumAristResults: results.data.allAlbums
-            })
-            if (results.data.allAlbums.length === 0) {
-              this.setState({noResult: true})
-            }
-          })
-          .catch(err => error(err))
+        this.setState({
+          searching: false,
+          albumAristResults: results
+        })
+        if (results.length === 0) {
+          this.setState({noResult: true})
+        }
       }
 
       if (this.state.selectedSearch === 'TRACK') {
-        findTrack(this.props.client, this.state.inputValue)
-          .then(results => {
+        const results = searchTrack(this.state.inputValue)
 
-            console.log('TRACK', results.data.allTracks)
-
-            this.setState({
-              searching: false,
-              trackResults: results.data.allTracks
-            })
-            if (results.data.allTracks.length === 0) {
-              this.setState({noResult: true})
-            }
-          })
-          .catch(err => error(err))
+        this.setState({
+          searching: false,
+          trackResults: results
+        })
+        if (results.length === 0) {
+          this.setState({noResult: true})
+        }
       }
     }
 
@@ -188,4 +164,4 @@ Home.propTypes = {
   client: PropTypes.any
 }
 
-export default withApollo(Home)
+export default Home
