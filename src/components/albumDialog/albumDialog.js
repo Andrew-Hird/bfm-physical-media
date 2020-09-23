@@ -44,12 +44,12 @@ class AlbumDialog extends Component {
           color={ grey50 } />
         <div style={ {marginLeft: 50} }>
           <Highlight search={this.props.searchTerm} matchElement="span">
-            {correctChar(this.props.selectedItem.name)} 
+            {correctChar(this.props.selectedItem.albumName)}
           </Highlight>
           {this.props.selectedItem.releaseYear ? ` (${this.props.selectedItem.releaseYear})` : null}
           <span> {this.props.selectedItem.genre ? `[${this.props.selectedItem.genre}]` : null}</span>
           <span className='missing-scratched'> {this.props.selectedItem.missing ? 'missing' : null}</span>
-          <div style={ style.catalog }>#{this.props.selectedItem.catalog}</div>
+          <div style={ style.catalog }>#{this.props.selectedItem.catalogNumber}</div>
         </div>
       </div>
     ) : null
@@ -72,7 +72,7 @@ class AlbumDialog extends Component {
                   return (
                     <li key={ i } className='tracks'>
                     <Highlight search={this.props.searchTerm} matchElement="span">
-                      {correctChar(track.name)}
+                      {correctChar(track.trackName)}
                     </Highlight>
                       <span className='gold'> {track.gold ? 'gold' : null}</span>
                       <span className='missing-scratched'> {track.scratched ? 'scratched' : null}</span>
