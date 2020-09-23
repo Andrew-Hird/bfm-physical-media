@@ -5,3 +5,8 @@
 
 ### Dev `yarn electron-dev`
 ### Package `yarn pack:all`
+
+#### Catalog
+A copy of the catalog lives in Google Drive
+
+Place `catalog.json` into `src/db/catalog.json`
